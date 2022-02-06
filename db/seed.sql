@@ -1,4 +1,4 @@
-use employeetracker;
+use employee;
 insert into department
 (name)
 values
