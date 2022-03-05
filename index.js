@@ -174,14 +174,48 @@ function addemployees() {
     });
   });
 }
-function removeemployees() {}
+function removeemployees() {
+  db.findallemployees().then(([row]) => {
+    let employee = row;
+    const employeechoices = employee.map(({ id, name }) => ({
+      name: name,
+      value: id,
+    }));
+    prompt({
+      type: "list",
+      name: "employee",
+      message: "Which employee would you like to remove?",
+      choices: employeechoices,
+    })
+      .then((res) => db.removeemployees(res.employeeId))
+      .then(() => console.log("removed employee from database"))
+      .then(() => loadprompts());
+  });
+}
 function findallroles() {}
 function viewemployeesbydepartment() {}
 function viewemployeesbymanager() {}
 function updateemployeerole() {}
 function updateemployeemanager() {}
 function addrole() {}
-function removerole() {}
+function removerole() {
+  db.findallroles().then(([row]) => {
+    let role = row;
+    const rolechoices = role.map(({ id, name }) => ({
+      name: name,
+      value: id,
+    }));
+    prompt({
+      type: "list",
+      name: "roleId",
+      message: "Which role would you like to remove?",
+      choices: rolechoices,
+    })
+      .then((res) => db.removerole(res.roleId))
+      .then(() => console.log("removed roles from database"))
+      .then(() => loadprompts());
+  });
+}
 function viewalldepartments() {}
 function removedepartments() {
   db.findalldepartments().then(([row]) => {
